@@ -3,7 +3,7 @@ package com.example.mastermind;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "game")
+@Table(name = "games")
 public class Game {
 
     @Id
