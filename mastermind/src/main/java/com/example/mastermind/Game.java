@@ -20,6 +20,18 @@ public class Game {
     @Column(name = "isGameOver")
     private boolean isGameOver;
 
+    // Constructors
+    public Game() {
+
+    }
+
+    public Game(String numberCombination, int maxAttempts) {
+        this.numberCombination = numberCombination;
+        this.maxAttempts = maxAttempts;
+        this.isGameOver = false;
+    }
+
+    // Getters and Setters
     public int getId() {
         return id;
     }
