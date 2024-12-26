@@ -1,4 +1,4 @@
-package com.example.mastermind;
+package com.example.mastermind.models;
 
 import jakarta.persistence.*;
 
