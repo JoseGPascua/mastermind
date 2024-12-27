@@ -1,9 +1,8 @@
 package com.example.mastermind.services;
 
 import com.example.mastermind.models.Game;
-import com.example.mastermind.controller.GameController;
 import com.example.mastermind.repository.GameRepository;
-import com.example.mastermind.services.randomNumberGenerator.LocalNumberGenerator;
+import com.example.mastermind.services.randomNumberGenerator.RandomNumberGeneratorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -14,19 +13,20 @@ import org.springframework.stereotype.Service;
 public class CreateGameService {
 
     private final GameRepository gameRepository;
-    private final LocalNumberGenerator localNumberGenerator;
+    private final RandomNumberGeneratorService randomNumberGeneratorService;
 
-    private final static Logger logger = LoggerFactory.getLogger(GameController.class);
+    private final static Logger logger = LoggerFactory.getLogger(CreateGameService.class);
 
-    public CreateGameService(GameRepository gameRepository, LocalNumberGenerator localNumberGenerator) {
+    public CreateGameService(GameRepository gameRepository,
+                             RandomNumberGeneratorService randomNumberGeneratorService) {
         this.gameRepository = gameRepository;
-        this.localNumberGenerator = localNumberGenerator;
+        this.randomNumberGeneratorService = randomNumberGeneratorService;
     }
 
     public ResponseEntity<Game> createGame() {
         logger.info("Creating a new game");
 
-        String numberCombination = localNumberGenerator.generateRandomNumber();
+        String numberCombination = randomNumberGeneratorService.provideRandomNumber();
         int maxAttempts = 10;
 
         Game game = new Game(numberCombination, maxAttempts);
