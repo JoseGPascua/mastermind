@@ -34,4 +34,17 @@ public class CreateGameService {
         return ResponseEntity.status(HttpStatus.CREATED).body(game);
     }
 
+    public ResponseEntity<Game> manualCreateGame(String numberCombination) {
+        logger.info("Creating a new game using a manual user input");
+        int maxAttempts = 10;
+
+        if (!numberCombination.matches("[0-7]{4}")) {
+            throw new RuntimeException("Invalid number combination");
+        }
+
+        Game game = new Game(numberCombination, maxAttempts);
+        gameRepository.save(game);
+        return ResponseEntity.status(HttpStatus.CREATED).body(game);
+    }
+
 }

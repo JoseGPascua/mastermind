@@ -25,6 +25,11 @@ public class GameController {
         return createGameService.createGame();
     }
 
+    @PostMapping("/createV2")
+    public ResponseEntity<Game> manualCreateGame(@RequestParam String numberCombination) {
+        return createGameService.manualCreateGame(numberCombination);
+    }
+
     @PostMapping("/guess")
     public ResponseEntity<String> guess(@RequestParam Integer gameId, @RequestParam String userInput) {
         return createUserGuessService.handleUserInput(gameId, userInput);
