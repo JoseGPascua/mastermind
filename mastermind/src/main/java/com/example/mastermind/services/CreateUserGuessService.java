@@ -16,12 +16,15 @@ import java.util.Optional;
 public class CreateUserGuessService {
 
     private final GameRepository gameRepository;
+    private final GameValidationService gameValidationService;
 
     private final static Logger logger = LoggerFactory.getLogger(CreateUserGuessService.class);
 
 
-    public CreateUserGuessService(GameRepository gameRepository) {
+    public CreateUserGuessService(GameRepository gameRepository,
+                                  GameValidationService gameValidationService) {
         this.gameRepository = gameRepository;
+        this.gameValidationService = gameValidationService;
     }
 
     public ResponseEntity<String> handleUserInput(Integer gameId, String userInput) {
@@ -45,17 +48,14 @@ public class CreateUserGuessService {
 
     private ResponseEntity<String> processUserInput(Game currentGame, String userInput) {
 
-        if (currentGame.isGameOver()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Game is already over");
+        ResponseEntity<String> inValidGameResponse = gameValidationService.validateGameStatus(currentGame);
+        if (inValidGameResponse != null) {
+            return inValidGameResponse;
         }
 
-        if (currentGame.getAttemptsLeft() <= 0) {
-            currentGame.setGameOver(true);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Out of attempts");
-        }
-
-        if (!userInput.matches("[0-7]{4}")) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid user input");
+        ResponseEntity<String> invalidUserInputResponse = gameValidationService.validateUserInput(userInput);
+        if (invalidUserInputResponse != null) {
+            return invalidUserInputResponse;
         }
 
         return userInput.equals(currentGame.getNumberCombination())
