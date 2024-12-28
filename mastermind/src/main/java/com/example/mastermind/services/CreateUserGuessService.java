@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Service
@@ -65,7 +66,7 @@ public class CreateUserGuessService {
     private ResponseEntity<String> handleCorrectGuess(Game currentGame, String userInput) {
         currentGame.setGameOver(true);
         gameRepository.save(currentGame);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Congratulations, you won with the guess: !" + userInput);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Congratulations, you won with the guess: " + userInput);
     }
 
     private ResponseEntity<String> handleIncorrectGuess(Game currentGame, String userInput) {
@@ -80,23 +81,27 @@ public class CreateUserGuessService {
         int correctlyPlacedNumbers = 0;
         int correctNumbers = 0;
 
-        ArrayList<Character> numberCombinationsList = new ArrayList<>();
+        HashMap<Character, Integer> numberCombinationsMap = new HashMap<>();
         ArrayList<Character> userInputsList = new ArrayList<>();
 
         for (int i = 0; i < numberCombination.length(); i++) {
             if (numberCombination.charAt(i) == userInput.charAt(i)) {
                 correctlyPlacedNumbers++;
             } else {
-                numberCombinationsList.add(numberCombination.charAt(i));
+                if (numberCombinationsMap.containsKey(numberCombination.charAt(i))) {
+                    numberCombinationsMap.put(numberCombination.charAt(i), numberCombinationsMap.get(numberCombination.charAt(i)) + 1);
+                } else {
+                    numberCombinationsMap.put(numberCombination.charAt(i), 1);
+                }
                 userInputsList.add(userInput.charAt(i));
             }
         }
 
         for (int i = 0; i < userInputsList.size(); i++) {
             char guessChar = userInputsList.get(i);
-            if (numberCombinationsList.contains(guessChar)) {
+            if (numberCombinationsMap.containsKey(guessChar) && numberCombinationsMap.get(guessChar) > 0) {
                 correctNumbers++;
-                numberCombinationsList.remove((Character) guessChar);
+                numberCombinationsMap.put(guessChar, numberCombinationsMap.get(guessChar) - 1);
             }
         }
 
