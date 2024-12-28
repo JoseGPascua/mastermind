@@ -11,13 +11,16 @@ public class Game {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "numberCombination")
+    @Column(name = "number_combination")
     private String numberCombination;
 
-    @Column(name = "maxAttempts")
+    @Column(name = "max_attempts")
     private int maxAttempts;
 
-    @Column(name = "isGameOver")
+    @Column(name = "attempts_left")
+    private int attemptsLeft;
+
+    @Column(name = "is_game_over")
     private boolean isGameOver;
 
     // Constructors
@@ -28,6 +31,7 @@ public class Game {
     public Game(String numberCombination, int maxAttempts) {
         this.numberCombination = numberCombination;
         this.maxAttempts = maxAttempts;
+        this.attemptsLeft = maxAttempts;
         this.isGameOver = false;
     }
 
@@ -54,6 +58,14 @@ public class Game {
 
     public void setMaxAttempts(int maxAttempts) {
         this.maxAttempts = maxAttempts;
+    }
+
+    public int getAttemptsLeft() {
+        return attemptsLeft;
+    }
+
+    public void setAttemptsLeft(int attemptsLeft) {
+        this.attemptsLeft = attemptsLeft;
     }
 
     public boolean isGameOver() {
