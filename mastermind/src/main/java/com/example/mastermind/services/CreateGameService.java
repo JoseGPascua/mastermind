@@ -14,7 +14,6 @@ public class CreateGameService {
 
     private final GameRepository gameRepository;
     private final RandomNumberGeneratorService randomNumberGeneratorService;
-
     private final static Logger logger = LoggerFactory.getLogger(CreateGameService.class);
 
     public CreateGameService(GameRepository gameRepository,
