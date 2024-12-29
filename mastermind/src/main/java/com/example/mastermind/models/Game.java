@@ -14,9 +14,6 @@ public class Game {
     @Column(name = "number_combination")
     private String numberCombination;
 
-    @Column(name = "max_attempts")
-    private int maxAttempts;
-
     @Column(name = "attempts_left")
     private int attemptsLeft;
 
@@ -28,10 +25,9 @@ public class Game {
 
     }
 
-    public Game(String numberCombination, int maxAttempts) {
+    public Game(String numberCombination, int attempts) {
         this.numberCombination = numberCombination;
-        this.maxAttempts = maxAttempts;
-        this.attemptsLeft = maxAttempts;
+        this.attemptsLeft = attempts;
         this.isGameOver = false;
     }
 
@@ -52,20 +48,12 @@ public class Game {
         this.numberCombination = numberCombination;
     }
 
-    public int getMaxAttempts() {
-        return maxAttempts;
-    }
-
-    public void setMaxAttempts(int maxAttempts) {
-        this.maxAttempts = maxAttempts;
-    }
-
     public int getAttemptsLeft() {
         return attemptsLeft;
     }
 
-    public void setAttemptsLeft(int attemptsLeft) {
-        this.attemptsLeft = attemptsLeft;
+    public void setAttemptsLeft(int attempts) {
+        this.attemptsLeft = attempts;
     }
 
     public boolean isGameOver() {
