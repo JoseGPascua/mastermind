@@ -1,6 +1,7 @@
 package com.example.mastermind.controller;
 
 import com.example.mastermind.models.Game;
+import com.example.mastermind.models.GameResponseDTO;
 import com.example.mastermind.services.CreateGameService;
 import com.example.mastermind.services.CreateUserGuessService;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class GameController {
     }
 
     @PostMapping("/guess")
-    public ResponseEntity<String> guess(@RequestParam Integer gameId, @RequestParam String userInput) {
+    public ResponseEntity<GameResponseDTO> guess(@RequestParam Integer gameId, @RequestParam String userInput) {
         return createUserGuessService.handleUserInput(gameId, userInput);
     }
 }

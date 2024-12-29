@@ -36,31 +36,35 @@ public class GameResponse {
         return userInput;
     }
 
-    public void setUserInput(String userInput) {
+    public GameResponse setUserInput(String userInput) {
         this.userInput = userInput;
+        return this;
     }
 
     public String getResponse() {
         return response;
     }
 
-    public void setResponse(String response) {
+    public GameResponse setResponse(String response) {
         this.response = response;
+        return this;
     }
 
     public int getAttemptsLeft() {
         return attemptsLeft;
     }
 
-    public void setAttemptsLeft(int attemptsLeft) {
+    public GameResponse setAttemptsLeft(int attemptsLeft) {
         this.attemptsLeft = attemptsLeft;
+        return this;
     }
 
     public HttpStatus getHttpStatus() {
         return httpStatus;
     }
 
-    public void setHttpStatus(HttpStatus httpStatus) {
+    public GameResponse setHttpStatus(HttpStatus httpStatus) {
         this.httpStatus = httpStatus;
+        return this;
     }
 }
