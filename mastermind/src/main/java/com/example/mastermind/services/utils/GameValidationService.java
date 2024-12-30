@@ -1,4 +1,4 @@
-package com.example.mastermind.services;
+package com.example.mastermind.services.utils;
 
 import com.example.mastermind.models.Game;
 import com.example.mastermind.models.GameResponse;
