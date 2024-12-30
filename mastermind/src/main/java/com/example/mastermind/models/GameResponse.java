@@ -24,6 +24,10 @@ public class GameResponse {
     @Column(name = "http_status")
     private HttpStatus httpStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+
     public int getId() {
         return id;
     }
@@ -66,5 +70,13 @@ public class GameResponse {
     public GameResponse setHttpStatus(HttpStatus httpStatus) {
         this.httpStatus = httpStatus;
         return this;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

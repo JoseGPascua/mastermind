@@ -2,6 +2,9 @@ package com.example.mastermind.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "games")
 public class Game {
@@ -19,6 +22,9 @@ public class Game {
 
     @Column(name = "is_game_over")
     private boolean isGameOver;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private final List<GameResponse> responseHistory = new ArrayList<>();
 
     // Constructors
     public Game() {
@@ -62,5 +68,14 @@ public class Game {
 
     public void setGameOver(boolean gameOver) {
         isGameOver = gameOver;
+    }
+
+    public List<GameResponse> getResponseHistory() {
+        return responseHistory;
+    }
+
+    public void addToResponseHistory(GameResponse response) {
+        response.setGame(this);
+        responseHistory.add(response);
     }
 }

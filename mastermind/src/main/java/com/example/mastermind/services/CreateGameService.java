@@ -1,6 +1,7 @@
 package com.example.mastermind.services;
 
 import com.example.mastermind.models.Game;
+import com.example.mastermind.models.GameDTO;
 import com.example.mastermind.repository.GameRepository;
 import com.example.mastermind.services.randomNumberGenerator.RandomNumberGeneratorService;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ public class CreateGameService {
         this.randomNumberGeneratorService = randomNumberGeneratorService;
     }
 
-    public ResponseEntity<Game> createGame() {
+    public ResponseEntity<GameDTO> createGame() {
         logger.info("Creating a new game");
 
         String numberCombination = randomNumberGeneratorService.provideRandomNumber();
@@ -30,10 +31,10 @@ public class CreateGameService {
 
         Game game = new Game(numberCombination, maxAttempts);
         gameRepository.save(game);
-        return ResponseEntity.status(HttpStatus.CREATED).body(game);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new GameDTO(game));
     }
 
-    public ResponseEntity<Game> manualCreateGame(String numberCombination) {
+    public ResponseEntity<GameDTO> manualCreateGame(String numberCombination) {
         logger.info("Creating a new game using a manual user input");
         int maxAttempts = 10;
 
@@ -43,7 +44,7 @@ public class CreateGameService {
 
         Game game = new Game(numberCombination, maxAttempts);
         gameRepository.save(game);
-        return ResponseEntity.status(HttpStatus.CREATED).body(game);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new GameDTO(game));
     }
 
 }
