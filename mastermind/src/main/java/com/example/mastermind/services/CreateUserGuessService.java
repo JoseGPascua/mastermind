@@ -72,6 +72,7 @@ public class CreateUserGuessService {
                 .setResponse("Congratulations, you won with the guess: " + userInput)
                 .setAttemptsLeft(currentGame.getAttemptsLeft())
                 .setHttpStatus(HttpStatus.CREATED);
+        currentGame.addToResponseHistory(response);
         gameRepository.save(currentGame);
 
         return ResponseEntity.status(response.getHttpStatus()).body(new GameResponseDTO(response));
@@ -86,6 +87,7 @@ public class CreateUserGuessService {
                 .setResponse(hint.getResponse())
                 .setAttemptsLeft(updatedAttemptsCount)
                 .setHttpStatus(HttpStatus.CREATED);
+        currentGame.addToResponseHistory(response);
         gameRepository.save(currentGame);
 
         return ResponseEntity.status(response.getHttpStatus()).body(new GameResponseDTO(response));
