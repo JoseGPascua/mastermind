@@ -1,5 +1,6 @@
 package com.example.mastermind.services.utils;
 
+import com.example.mastermind.exceptions.InvalidInputException;
 import com.example.mastermind.models.Game;
 import com.example.mastermind.models.GameResponse;
 import org.slf4j.Logger;
@@ -64,12 +65,28 @@ public class GameValidationService {
      */
     public GameResponse validateUserInput(Game currentGame, String userInput, GameResponse response) {
         logger.info("Validating user input");
-        if (!userInput.matches("[0-7]{4}")) {
-            return response.setResponse("Please input a guess that is 4-digits and only numbers from 0-7")
+
+        try {
+            isValidCode(userInput);
+            response.setHttpStatus((HttpStatus.OK));
+        } catch (InvalidInputException exception) {
+            response.setResponse(exception.getMessage())
                     .setUserInput(userInput)
                     .setAttemptsLeft(currentGame.getAttemptsLeft())
                     .setHttpStatus(HttpStatus.BAD_REQUEST);
         }
-        return response.setHttpStatus(HttpStatus.OK);
+        return response;
+    }
+
+    /**
+     * Helper method for validateUserInput to check if the user's input (guess for the number combination) only contains
+     * characters from 0 to 7 and is only 4-digits long
+     *
+     * @param userInput is the user's guess to be validated
+     */
+    private void isValidCode(String userInput) {
+        if (!userInput.matches("[0-7]{4}")) {
+            throw new InvalidInputException();
+        }
     }
 }
