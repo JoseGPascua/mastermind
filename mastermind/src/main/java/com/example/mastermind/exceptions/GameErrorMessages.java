@@ -4,7 +4,8 @@ public enum GameErrorMessages {
 
     GAME_ID_NOT_PROVIDED("Game ID not provided!"),
     GAME_NOT_FOUND("Game not found!"),
-    INVALID_INPUT("Invalid input! Please enter a 4-digit number using characters between 0 and 7!");
+    INVALID_INPUT("Invalid input! Please enter a 4-digit number using characters between: "),
+    INVALID_DIFFICULTY_INPUT("Invalid difficulty level, please input 1, 2, or 3");
 
     private final String message;
 

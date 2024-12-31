@@ -23,13 +23,13 @@ public class CreateGameService {
         this.randomNumberGeneratorService = randomNumberGeneratorService;
     }
 
-    public ResponseEntity<GameDTO> createGame() {
+    public ResponseEntity<GameDTO> createGame(String difficulty) {
         logger.info("Creating a new game");
 
-        String numberCombination = randomNumberGeneratorService.provideRandomNumber();
+        String numberCombination = randomNumberGeneratorService.provideRandomNumber(difficulty);
         int maxAttempts = 10;
 
-        Game game = new Game(numberCombination, maxAttempts);
+        Game game = new Game(numberCombination, maxAttempts, difficulty);
         gameRepository.save(game);
         return ResponseEntity.status(HttpStatus.CREATED).body(new GameDTO(game));
     }
@@ -42,7 +42,7 @@ public class CreateGameService {
             throw new RuntimeException("Invalid number combination");
         }
 
-        Game game = new Game(numberCombination, maxAttempts);
+        Game game = new Game(numberCombination, maxAttempts, "1");
         gameRepository.save(game);
         return ResponseEntity.status(HttpStatus.CREATED).body(new GameDTO(game));
     }

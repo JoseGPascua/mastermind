@@ -29,8 +29,8 @@ public class GameController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<GameDTO> createGame() {
-        return createGameService.createGame();
+    public ResponseEntity<GameDTO> createGame(@RequestParam String difficulty) {
+        return createGameService.createGame(difficulty);
     }
 
     @PostMapping("/createV2")
