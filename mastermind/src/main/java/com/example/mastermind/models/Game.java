@@ -26,6 +26,9 @@ public class Game {
     @Column(name = "difficulty")
     private String difficulty;
 
+    @Column(name = "score")
+    private int score;
+
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private final List<GameResponse> responseHistory = new ArrayList<>();
 
@@ -39,6 +42,7 @@ public class Game {
         this.attemptsLeft = attempts;
         this.isGameOver = false;
         this.difficulty = difficulty;
+        this.score = 1000;
     }
 
     // Getters and Setters
@@ -70,8 +74,9 @@ public class Game {
         return isGameOver;
     }
 
-    public void setGameOver(boolean gameOver) {
+    public Game setGameOver(boolean gameOver) {
         isGameOver = gameOver;
+        return this;
     }
 
     public String getDifficulty() {
@@ -82,6 +87,15 @@ public class Game {
         this.difficulty = difficulty;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public Game updateScore(int deduction) {
+        this.score -= deduction;
+        return this;
+    }
+
     public List<GameResponse> getResponseHistory() {
         return responseHistory;
     }
@@ -89,5 +103,10 @@ public class Game {
     public void addToResponseHistory(GameResponse response) {
         response.setGame(this);
         responseHistory.add(response);
+    }
+
+    public int useAttempt() {
+        this.attemptsLeft--;
+        return attemptsLeft;
     }
 }

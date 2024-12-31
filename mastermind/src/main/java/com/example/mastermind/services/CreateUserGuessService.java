@@ -71,9 +71,10 @@ public class CreateUserGuessService {
     }
 
     private ResponseEntity<GameResponseDTO> handleCorrectGuess(Game currentGame, String userInput, GameResponse response) {
-        currentGame.setGameOver(true);
+        currentGame.setGameOver(true).setAttemptsLeft(currentGame.useAttempt());
         response.setUserInput(userInput)
                 .setResponse("Congratulations, you won with the guess: " + userInput)
+                .setTotalScore(currentGame.getScore())
                 .setAttemptsLeft(currentGame.getAttemptsLeft())
                 .setHttpStatus(HttpStatus.CREATED);
         currentGame.addToResponseHistory(response);
@@ -84,12 +85,13 @@ public class CreateUserGuessService {
 
     private ResponseEntity<GameResponseDTO> handleIncorrectGuess(Game currentGame, String userInput, GameResponse response) {
         GameResponse hint = guessCheckingService.compareGuess(currentGame.getNumberCombination(), userInput);
-        int updatedAttemptsCount = currentGame.getAttemptsLeft() - 1;
-        currentGame.setAttemptsLeft(updatedAttemptsCount);
+
+        currentGame.updateScore(hint.getScoreDeduction()).setAttemptsLeft(currentGame.useAttempt());
 
         response.setUserInput(userInput)
                 .setResponse(hint.getResponse())
-                .setAttemptsLeft(updatedAttemptsCount)
+                .setTotalScore(currentGame.getScore())
+                .setAttemptsLeft(currentGame.getAttemptsLeft())
                 .setHttpStatus(HttpStatus.CREATED);
         currentGame.addToResponseHistory(response);
         gameRepository.save(currentGame);

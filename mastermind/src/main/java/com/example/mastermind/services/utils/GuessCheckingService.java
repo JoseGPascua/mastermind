@@ -59,9 +59,39 @@ public class GuessCheckingService {
 
         correctNumbers += correctlyPlacedNumbers;
 
+        int scoreDeduction = calculateScoreDeduction(correctlyPlacedNumbers, correctNumbers);
+        response.setScoreDeduction(scoreDeduction);
+
         boolean allIncorrect = correctlyPlacedNumbers == 0 && correctNumbers == 0;
         return allIncorrect
                 ? response.setResponse("All incorrect!")
                 : response.setResponse("Correctly placed numbers: " + correctlyPlacedNumbers + " and correct numbers: " + correctNumbers);
+    }
+
+    /**
+     * Method to add a score deduction value to the GameResponse produced after comparing the user's guess to the
+     * random number combination. This method takes the values of correctlyPlacedNumbers and correctNumbers from
+     * compareGuess method to calculate a deduction. The amount of correctlyPlacedNumbers will be used to select an
+     * index from an array to reduce the score deduction by. The amount of correctNumbers will reduce the scoreDeduction
+     * if there are more correctNumbers than there are correctlyPlacedNumbers.
+     *
+     * @param correctlyPlaceNumbers is the number of correctly guessed numbers in ths correct place that matches the
+     *                              random number combination. This value also represents a correctNumber, for example
+     *                              if the value of correctlyPlacedNumbers is 1, then correctNumber cannot be a value of
+     *                              0.
+     * @param correctNumbers is the number of correct numbers in the user's guess but is not in the correct placement
+     *                       as the random number combination.
+     * @return an Integer representing how much to reduce the total score by
+     */
+    private Integer calculateScoreDeduction(int correctlyPlaceNumbers, int correctNumbers) {
+        int[] scoreDeductionArray = {0, 25, 50, 75, 100};
+        int scoreDeduction = 100 - scoreDeductionArray[correctlyPlaceNumbers];
+
+        if (correctNumbers > correctlyPlaceNumbers) {
+            int difference = correctNumbers - correctlyPlaceNumbers;
+            scoreDeduction -= difference * 10;
+        }
+
+        return scoreDeduction;
     }
 }
