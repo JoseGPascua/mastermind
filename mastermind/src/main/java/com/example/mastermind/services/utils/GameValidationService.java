@@ -1,6 +1,8 @@
 package com.example.mastermind.services.utils;
 
+import com.example.mastermind.exceptions.InvalidDifficultyInputException;
 import com.example.mastermind.exceptions.InvalidInputException;
+import com.example.mastermind.models.DifficultyPattern;
 import com.example.mastermind.models.Game;
 import com.example.mastermind.models.GameResponse;
 import org.slf4j.Logger;
@@ -67,7 +69,7 @@ public class GameValidationService {
         logger.info("Validating user input");
 
         try {
-            isValidCode(userInput);
+            isValidNumberCombination(currentGame, userInput);
             response.setHttpStatus((HttpStatus.OK));
         } catch (InvalidInputException exception) {
             response.setResponse(exception.getMessage())
@@ -80,13 +82,23 @@ public class GameValidationService {
 
     /**
      * Helper method for validateUserInput to check if the user's input (guess for the number combination) only contains
-     * characters from 0 to 7 and is only 4-digits long
+     * characters from 0 to 7 and is only 4-digits long. A DifficultyPattern object is instantiated with a switch case
+     * to define the valid regular expression for matching the user input with, as well as displaying the  valid range
+     * for the exception message
      *
      * @param userInput is the user's guess to be validated
      */
-    private void isValidCode(String userInput) {
-        if (!userInput.matches("[0-7]{4}")) {
-            throw new InvalidInputException();
+    private void isValidNumberCombination(Game currentGame, String userInput) {
+
+        DifficultyPattern difficultyPattern = switch(currentGame.getDifficulty()) {
+            case "1" -> new DifficultyPattern("0-7", "[0-7]{4}");
+            case "2" -> new DifficultyPattern("0-8", "[0-8]{4}");
+            case "3" -> new DifficultyPattern("0-9", "[0-9]{4}");
+            default -> throw new InvalidDifficultyInputException();
+        };
+
+        if (!userInput.matches(difficultyPattern.getDifficultyRegex())) {
+            throw new InvalidInputException(difficultyPattern.getDifficultyRange());
         }
     }
 }

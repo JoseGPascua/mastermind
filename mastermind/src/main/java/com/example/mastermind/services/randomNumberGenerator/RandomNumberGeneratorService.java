@@ -17,13 +17,22 @@ public class RandomNumberGeneratorService {
         this.localNumberGenerator = localNumberGenerator;
     }
 
-    public String provideRandomNumber() {
+    /**
+     * Method to provide a random number. This method will first attempt to use teh ApiNumberGenerator class, and if
+     * the API is down or somehow manages to return a value the program sees as invalid, the method will use the
+     * localNumberGenerator as a fallback to generate the random number.
+     *
+     * @param difficulty is the difficulty level used to determine what allowed characters will be used for the random
+     *                   number
+     * @return a String representing the random number that the user must guess during the game
+     */
+    public String provideRandomNumber(String difficulty) {
         try {
             logger.info("Providing random number from external API...");
-            return apiNumberGenerator.generateRandomNumber();
+            return apiNumberGenerator.generateRandomNumber(difficulty);
         } catch (Exception e) {
-            logger.warn("{}... generating local random number", e.getMessage());
-            return localNumberGenerator.generateRandomNumber();
+            logger.warn("Using local number generator: {}", e.getMessage());
+            return localNumberGenerator.generateRandomNumber(difficulty);
         }
     }
 }
