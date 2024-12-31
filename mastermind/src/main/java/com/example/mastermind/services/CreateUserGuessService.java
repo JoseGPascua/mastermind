@@ -1,5 +1,7 @@
 package com.example.mastermind.services;
 
+import com.example.mastermind.exceptions.GameIdNotProvidedException;
+import com.example.mastermind.exceptions.GameNotFoundException;
 import com.example.mastermind.models.Game;
 import com.example.mastermind.models.GameResponse;
 import com.example.mastermind.models.GameResponseDTO;
@@ -34,13 +36,13 @@ public class CreateUserGuessService {
         logger.info("Creating guess");
 
         if (gameId == null) {
-            throw new RuntimeException("Game ID not provided");
+            throw new GameIdNotProvidedException();
         }
 
         Optional<Game> optionalGame = gameRepository.findById(gameId);
 
         if (optionalGame.isEmpty()) {
-            throw new RuntimeException("Game not found");
+            throw new GameNotFoundException();
         }
 
         Game currentGame = optionalGame.get();

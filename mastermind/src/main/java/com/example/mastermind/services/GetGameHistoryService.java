@@ -1,5 +1,7 @@
 package com.example.mastermind.services;
 
+import com.example.mastermind.exceptions.GameIdNotProvidedException;
+import com.example.mastermind.exceptions.GameNotFoundException;
 import com.example.mastermind.models.Game;
 import com.example.mastermind.models.GameResponseDTO;
 import com.example.mastermind.models.GameResponseHistoryDTO;
@@ -35,13 +37,13 @@ public class GetGameHistoryService {
     public ResponseEntity<GameResponseHistoryDTO> getGameHistory(Integer gameId) {
         logger.info("Retrieving game history for gameId: {}", gameId);
         if (gameId == null) {
-            throw new RuntimeException("Game Id not found");
+            throw new GameIdNotProvidedException();
         }
 
         Optional<Game> gameOptional = gameRepository.findById(gameId);
 
         if (gameOptional.isEmpty()) {
-            throw new RuntimeException("Game not found");
+            throw new GameNotFoundException();
         }
 
         Game game = gameOptional.get();
