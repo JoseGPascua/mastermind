@@ -24,6 +24,12 @@ public class GameResponse {
     @Column(name = "http_status")
     private HttpStatus httpStatus;
 
+    @Column(name = "score_deduction")
+    private int scoreDeduction;
+
+    @Column(name = "total_score")
+    private int totalScore;
+
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
@@ -69,6 +75,24 @@ public class GameResponse {
 
     public GameResponse setHttpStatus(HttpStatus httpStatus) {
         this.httpStatus = httpStatus;
+        return this;
+    }
+
+    public int getScoreDeduction() {
+        return scoreDeduction;
+    }
+
+    public GameResponse setScoreDeduction(int scoreDeduction) {
+        this.scoreDeduction = scoreDeduction;
+        return this;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public GameResponse setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
         return this;
     }
 
