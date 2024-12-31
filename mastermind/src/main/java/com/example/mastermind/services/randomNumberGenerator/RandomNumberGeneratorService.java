@@ -22,7 +22,7 @@ public class RandomNumberGeneratorService {
             logger.info("Providing random number from external API...");
             return apiNumberGenerator.generateRandomNumber();
         } catch (Exception e) {
-            logger.warn("Providing random number from external API failed.", e);
+            logger.warn("{}... generating local random number", e.getMessage());
             return localNumberGenerator.generateRandomNumber();
         }
     }
