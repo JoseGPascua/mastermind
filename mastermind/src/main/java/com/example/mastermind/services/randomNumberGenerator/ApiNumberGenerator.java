@@ -12,8 +12,8 @@ public class ApiNumberGenerator implements NumberGenerator {
 
     private final RestTemplate restTemplate;
     private static final String EASY = "https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new";
-    private static final String MEDIUM = "https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new";
-    private static final String HARD = "https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new";
+    private static final String MEDIUM = "https://www.random.org/integers/?num=4&min=0&max=8&col=1&base=10&format=plain&rnd=new";
+    private static final String HARD = "https://www.random.org/integers/?num=4&min=0&max=9&col=1&base=10&format=plain&rnd=new";
 
     public ApiNumberGenerator(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
