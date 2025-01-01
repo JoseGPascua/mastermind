@@ -61,7 +61,7 @@ public class CreateUserGuessService {
 
         GameResponse validUserInputResponse = gameValidationService.validateUserInput(currentGame, userInput, response);
         if (!validUserInputResponse.getHttpStatus().equals(HttpStatus.OK)) {
-            return ResponseEntity.status(validGameResponse.getHttpStatus())
+            return ResponseEntity.status(validUserInputResponse.getHttpStatus())
                     .body(new GameResponseDTO(validUserInputResponse));
         }
 

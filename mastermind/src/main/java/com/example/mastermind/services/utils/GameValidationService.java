@@ -50,6 +50,7 @@ public class GameValidationService {
      */
     private GameResponse gameIsOverResponse(Game currentGame, GameResponse response) {
         return response.setResponse("Game is over, the correct answer: " + currentGame.getNumberCombination())
+                .setTotalScore(currentGame.getScore())
                 .setAttemptsLeft(currentGame.getAttemptsLeft())
                 .setHttpStatus(HttpStatus.FORBIDDEN);
     }
@@ -74,6 +75,7 @@ public class GameValidationService {
         } catch (InvalidInputException exception) {
             response.setResponse(exception.getMessage())
                     .setUserInput(userInput)
+                    .setTotalScore(currentGame.getScore())
                     .setAttemptsLeft(currentGame.getAttemptsLeft())
                     .setHttpStatus(HttpStatus.BAD_REQUEST);
         }
