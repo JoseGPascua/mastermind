@@ -44,7 +44,7 @@ public class GameController {
      *                   - "3" will allow the number combination to be 0-9
      * @return A {@link ResponseEntity} containing a {@link GameDTO} that represents the game that has been created
      */
-    @PostMapping("/create")
+    @PostMapping("/new-game")
     public ResponseEntity<GameDTO> createGame(@RequestParam String difficulty) {
         return createGameService.createGame(difficulty);
     }
@@ -56,7 +56,7 @@ public class GameController {
      *                          guess in order to "win" the game
      * @return A {@link ResponseEntity} containing a {@link GameDTO} that represents the game that has been created
      */
-    @PostMapping("/createV2")
+    @PostMapping("/new-manual-game")
     public ResponseEntity<GameDTO> manualCreateGame(@RequestParam String numberCombination) {
         return createGameService.manualCreateGame(numberCombination);
     }
@@ -72,7 +72,7 @@ public class GameController {
      * @return A {@link ResponseEntity} containing a {@link GameResponseDTO} that represents the feedback that is
      * sent back to the user.
      */
-    @PostMapping("/guess")
+    @PostMapping("/new-guess")
     public ResponseEntity<GameResponseDTO> guess(@RequestParam Integer gameId, @RequestParam String userInput) {
         return createUserGuessService.handleUserInput(gameId, userInput);
     }

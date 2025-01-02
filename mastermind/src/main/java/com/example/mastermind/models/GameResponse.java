@@ -3,6 +3,9 @@ package com.example.mastermind.models;
 import jakarta.persistence.*;
 import org.springframework.http.HttpStatus;
 
+/**
+ * Represents the response, or feedback, that will be sent back to the user.
+ */
 @Entity
 @Table(name = "game_response")
 public class GameResponse {

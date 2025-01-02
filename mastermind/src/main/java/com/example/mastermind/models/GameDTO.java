@@ -1,7 +1,8 @@
 package com.example.mastermind.models;
 
-import jakarta.persistence.Column;
-
+/**
+ * A data transfer object for {@link Game} that displays fields that will be sent back to the client
+ */
 public class GameDTO {
     private int id;
     private String numberCombination;

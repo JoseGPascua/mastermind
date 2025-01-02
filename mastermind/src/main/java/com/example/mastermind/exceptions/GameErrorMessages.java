@@ -1,5 +1,8 @@
 package com.example.mastermind.exceptions;
 
+/**
+ * Class that represents the error messages for the custom exceptions in the game
+ */
 public enum GameErrorMessages {
 
     GAME_ID_NOT_PROVIDED("Game ID not provided!"),
