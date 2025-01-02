@@ -27,12 +27,14 @@ public class GameValidationService {
      * remaining. If the validation is passed it will return a GameResponse with an HttpStatus of OK.
      */
     public GameResponse validateGameStatus(Game currentGame, GameResponse response) {
-        logger.info("Validating game status");
+        logger.info("Validating game status...");
         if (currentGame.isGameOver()) {
+            logger.warn("Game status is invalid, game is already over");
             return gameIsOverResponse(currentGame, response);
         }
 
         if (currentGame.getAttemptsLeft() <= 0) {
+            logger.warn("Game status is invalid, out of attempts");
             currentGame.setGameOver(true);
             return gameIsOverResponse(currentGame, response);
         }
@@ -67,7 +69,7 @@ public class GameValidationService {
      * @return a GameResponse that tells the user if their input is invalid, otherwise just an HttpStatus of OK
      */
     public GameResponse validateUserInput(Game currentGame, String userInput, GameResponse response) {
-        logger.info("Validating user input");
+        logger.info("Validating user input...");
 
         try {
             isValidNumberCombination(currentGame, userInput);
@@ -100,6 +102,7 @@ public class GameValidationService {
         };
 
         if (!userInput.matches(difficultyPattern.getDifficultyRegex())) {
+            logger.warn("User input is invalid...");
             throw new InvalidInputException(difficultyPattern.getDifficultyRange());
         }
     }

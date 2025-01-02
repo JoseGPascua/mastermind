@@ -35,7 +35,7 @@ public class GetGameHistoryService {
      * @return a GameResponseHistoryDTO that contains the id of the game and a list of GameResponseDTOs
      */
     public ResponseEntity<GameResponseHistoryDTO> getGameHistory(Integer gameId) {
-        logger.info("Retrieving game history for gameId: {}", gameId);
+        logger.info("Retrieving feedback history for the Game ID: {}", gameId);
         if (gameId == null) {
             throw new GameIdNotProvidedException();
         }
