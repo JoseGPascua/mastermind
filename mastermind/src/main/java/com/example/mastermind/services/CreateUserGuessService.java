@@ -88,7 +88,7 @@ public class CreateUserGuessService {
     }
 
     private ResponseEntity<GameResponseDTO> handleIncorrectGuess(Game currentGame, String userInput, GameResponse response) {
-        logger.info("User input is incorrect, proceeding to generated hint...");
+        logger.info("User input is incorrect, proceeding to generate a hint...");
         GameResponse hint = guessCheckingService.compareGuess(currentGame.getNumberCombination(), userInput);
 
         currentGame.updateScore(hint.getScoreDeduction()).setAttemptsLeft(currentGame.useAttempt());

@@ -3,6 +3,7 @@ package com.example.mastermind.services;
 import com.example.mastermind.exceptions.GameIdNotProvidedException;
 import com.example.mastermind.exceptions.GameNotFoundException;
 import com.example.mastermind.models.Game;
+import com.example.mastermind.models.GameResponse;
 import com.example.mastermind.models.GameResponseDTO;
 import com.example.mastermind.models.GameResponseHistoryDTO;
 import com.example.mastermind.repository.GameRepository;
@@ -16,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service for retrieving {@link Game} history
+ */
 @Service
 public class GetGameHistoryService {
     
@@ -32,7 +36,8 @@ public class GetGameHistoryService {
      *
      * @param gameId is the given game id that will be used to find the game in the GameRepository
      *
-     * @return a GameResponseHistoryDTO that contains the id of the game and a list of GameResponseDTOs
+     * @return A {@link ResponseEntity} containing a {@link GameResponseHistoryDTO} which contains the id of the game
+     * and a list of {@link GameResponseDTO}
      */
     public ResponseEntity<GameResponseHistoryDTO> getGameHistory(Integer gameId) {
         logger.info("Retrieving feedback history for the Game ID: {}", gameId);
@@ -51,14 +56,15 @@ public class GetGameHistoryService {
     }
 
     /**
-     * Method to populate the GameResponseHistoryDTO with a list of GameResponseDTOs from a specific game identified
-     * by the game ID.
+     * Method to populate the {@link GameResponseHistoryDTO} with a list of {@link GameResponseDTO} from a specific game
+     * identified by the game ID.
      *
-     * @param game is the game found in the repository that matches the given game id, it contains a list of
-     *             GameResponses that will be used to populate the GameResponseDTOList with corresponding
+     * @param game is the {@link Game} found in the repository that matches the given game id, it contains a list of
+     *             {@link GameResponse} that will be used to populate the GameResponseDTOList with corresponding
      *             GameResponseDTOs
      *
-     * @return a GameResponseHistoryDTO that contains the id of the game and a list of GameResponseDTOs
+     * @return A {@link ResponseEntity} containing a {@link GameResponseHistoryDTO} which contains the id of the game
+     * and a list of {@link GameResponseDTO}
      */
     private ResponseEntity<GameResponseHistoryDTO> populateGameResponseHistory(Game game) {
         GameResponseHistoryDTO gameResponseHistoryDTO = new GameResponseHistoryDTO(game);

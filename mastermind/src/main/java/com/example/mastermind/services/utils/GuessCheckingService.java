@@ -1,11 +1,16 @@
 package com.example.mastermind.services.utils;
 
+import com.example.mastermind.models.Game;
 import com.example.mastermind.models.GameResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Service for comparing the {@link Game} numberCombination field to the user's guess. This service generates
+ * the feedback for hints.
+ */
 @Service
 public class GuessCheckingService {
 
@@ -26,7 +31,7 @@ public class GuessCheckingService {
      * @param userInput is the user's guess that will be compared to the numberCombination. This method is only
      *                  accessed when the numberCombination does not equal the userInput
      *
-     * @return a GameResponse that contains feedback for the user
+     * @return A {@link GameResponse} that contains feedback for the user
      */
     public GameResponse compareGuess(String numberCombination, String userInput) {
         GameResponse response = new GameResponse();
@@ -81,7 +86,7 @@ public class GuessCheckingService {
      *                              0.
      * @param correctNumbers is the number of correct numbers in the user's guess but is not in the correct placement
      *                       as the random number combination.
-     * @return an Integer representing how much to reduce the total score by
+     * @return An Integer representing how much to reduce the total score by
      */
     private Integer calculateScoreDeduction(int correctlyPlaceNumbers, int correctNumbers) {
         int[] scoreDeductionArray = {0, 25, 50, 75, 100};

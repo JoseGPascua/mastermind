@@ -7,6 +7,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * Service for generating a random number through an api url.
+ */
 @Service
 public class ApiNumberGenerator implements NumberGenerator {
 

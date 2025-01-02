@@ -3,6 +3,9 @@ package com.example.mastermind.services.randomNumberGenerator;
 import com.example.mastermind.exceptions.InvalidDifficultyInputException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service for generating a random number locally.
+ */
 @Service
 public class LocalNumberGenerator implements NumberGenerator {
 
