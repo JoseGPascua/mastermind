@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a single Game, and it's status, such as the number combination a user must guess, whether the game is
+ * over or not.
+ */
 @Entity
 @Table(name = "games")
 public class Game {

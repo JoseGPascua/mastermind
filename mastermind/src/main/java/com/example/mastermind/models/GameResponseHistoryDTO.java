@@ -2,6 +2,9 @@ package com.example.mastermind.models;
 
 import java.util.List;
 
+/**
+ * A data transfer object that displays a {@link List} of {@link GameResponseDTO} which will be sent back to the client
+ */
 public class GameResponseHistoryDTO {
 
     private int gameId;

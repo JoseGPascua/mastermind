@@ -1,5 +1,8 @@
 package com.example.mastermind.models;
 
+/**
+ * A data transfer object for {@link GameResponse} that displays fields that will be sent back to the client
+ */
 public class GameResponseDTO {
     private String userInput;
     private String response;
