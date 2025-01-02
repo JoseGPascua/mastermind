@@ -1,9 +1,13 @@
 package com.example.mastermind.services.randomNumberGenerator;
 
+import com.example.mastermind.models.Game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service for providing a random number that will be used as a field in a {@link Game} entity
+ */
 @Service
 public class RandomNumberGeneratorService {
 
