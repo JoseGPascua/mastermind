@@ -24,13 +24,14 @@ public class CreateGameService {
     }
 
     public ResponseEntity<GameDTO> createGame(String difficulty) {
-        logger.info("Creating a new game");
+        logger.info("Attempting to create a new game with the difficulty of: {}", difficulty);
 
         String numberCombination = randomNumberGeneratorService.provideRandomNumber(difficulty);
         int maxAttempts = 10;
 
         Game game = new Game(numberCombination, maxAttempts, difficulty);
         gameRepository.save(game);
+        logger.info("Created a new game with the ID of: {}", game.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(new GameDTO(game));
     }
 

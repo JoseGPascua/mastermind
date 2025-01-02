@@ -31,7 +31,7 @@ public class RandomNumberGeneratorService {
             logger.info("Providing random number from external API...");
             return apiNumberGenerator.generateRandomNumber(difficulty);
         } catch (Exception e) {
-            logger.warn("Using local number generator: {}", e.getMessage());
+            logger.info("Using local number generator: {}", e.getMessage());
             return localNumberGenerator.generateRandomNumber(difficulty);
         }
     }

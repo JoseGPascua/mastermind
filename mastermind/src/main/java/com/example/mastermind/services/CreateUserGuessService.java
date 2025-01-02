@@ -33,15 +33,17 @@ public class CreateUserGuessService {
 
     public ResponseEntity<GameResponseDTO> handleUserInput(Integer gameId, String userInput) {
 
-        logger.info("Creating guess");
+        logger.info("Attempting to create a guess using the input: {}", userInput);
 
         if (gameId == null) {
+            logger.warn("Game ID cannot be null...");
             throw new GameIdNotProvidedException();
         }
 
         Optional<Game> optionalGame = gameRepository.findById(gameId);
 
         if (optionalGame.isEmpty()) {
+            logger.warn("Game could not be found with the provided Game ID...");
             throw new GameNotFoundException();
         }
 
@@ -58,12 +60,14 @@ public class CreateUserGuessService {
             return ResponseEntity.status(validGameResponse.getHttpStatus())
                     .body(new GameResponseDTO(validGameResponse));
         }
+        logger.info("Game Status validated successfully...");
 
         GameResponse validUserInputResponse = gameValidationService.validateUserInput(currentGame, userInput, response);
         if (!validUserInputResponse.getHttpStatus().equals(HttpStatus.OK)) {
             return ResponseEntity.status(validUserInputResponse.getHttpStatus())
                     .body(new GameResponseDTO(validUserInputResponse));
         }
+        logger.info("User Input validated successfully...");
 
         return userInput.equals(currentGame.getNumberCombination())
                 ? handleCorrectGuess(currentGame, userInput, response)
@@ -71,6 +75,7 @@ public class CreateUserGuessService {
     }
 
     private ResponseEntity<GameResponseDTO> handleCorrectGuess(Game currentGame, String userInput, GameResponse response) {
+        logger.info("User has won the game");
         currentGame.setGameOver(true).setAttemptsLeft(currentGame.useAttempt());
         response.setUserInput(userInput)
                 .setResponse("Congratulations, you won with the guess: " + userInput)
@@ -79,11 +84,11 @@ public class CreateUserGuessService {
                 .setHttpStatus(HttpStatus.CREATED);
         currentGame.addToResponseHistory(response);
         gameRepository.save(currentGame);
-
         return ResponseEntity.status(response.getHttpStatus()).body(new GameResponseDTO(response));
     }
 
     private ResponseEntity<GameResponseDTO> handleIncorrectGuess(Game currentGame, String userInput, GameResponse response) {
+        logger.info("User input is incorrect, proceeding to generated hint...");
         GameResponse hint = guessCheckingService.compareGuess(currentGame.getNumberCombination(), userInput);
 
         currentGame.updateScore(hint.getScoreDeduction()).setAttemptsLeft(currentGame.useAttempt());
@@ -95,7 +100,6 @@ public class CreateUserGuessService {
                 .setHttpStatus(HttpStatus.CREATED);
         currentGame.addToResponseHistory(response);
         gameRepository.save(currentGame);
-
         return ResponseEntity.status(response.getHttpStatus()).body(new GameResponseDTO(response));
     }
 }
