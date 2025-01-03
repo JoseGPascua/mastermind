@@ -47,6 +47,7 @@ public class CreateGameService {
         Game game = new Game(numberCombination, MAX_ATTEMPTS, difficulty);
         gameRepository.save(game);
         logger.info("Created a new game with the ID of: {}", game.getId());
+        logger.info("The number combination to guess is: {}", numberCombination);
         return ResponseEntity.status(HttpStatus.CREATED).body(new GameDTO(game));
     }
 
