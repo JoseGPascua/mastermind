@@ -48,7 +48,7 @@ The database along with the tables will have been created! To confirm this, you 
 SHOW TABLES;
 exit
 ```
-Then go into the resources folder. It can be accessed by clicking the `src` folder, then clicking into `main` folder, then finally clicking into `resources` folder. Go into the `application.properties` file and replace `${MY_USERNAME}` and `${MY_PASSWORD}` with your own MySQL credentials. The file should look like this:
+Open the mastermind project in your own IDE. Make sure you open the mastermind folder that is inside the mastermind project. Then go into the resources folder. It can be accessed by clicking the `src` folder, then clicking into `main` folder, then finally clicking into `resources` folder. Go into the `application.properties` file and replace `${MY_USERNAME}` and `${MY_PASSWORD}` with your own MySQL credentials. The file should look like this:
 ```properties 
 spring.application.name=mastermind
 spring.datasource.url=jdbc:mysql://localhost:3306/mastermind
@@ -67,7 +67,12 @@ Welcome to Mastermind's Backend Service!
 ```
 
 ### 3. Set up the Game Interface
-In another terminal, change directories to mastermindCLI folder then run the following:
+In another terminal, change directories to mastermindCLI folder. For example:
+```
+cd mastermind/mastermindCLI
+```
+
+Then run the following:
 ```
 mvn clean install
 mvn dependency:copy-dependencies
