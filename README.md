@@ -17,6 +17,7 @@ To properly play the game there are a few requirements and prerequisites.
 ### Project Requirements:
 - `Java Version 21`
 - `MySQL Version 8.0`
+- `Maven 3.9`
 
 
 ## To run this project
@@ -78,6 +79,11 @@ mvn clean install
 mvn dependency:copy-dependencies
 java -cp "target/classes;target/dependency/*" MastermindCLI
 ```
+For Mac Users, if the Java Command doesn't work, either try running MastermindCLI.java on an IDE ur run this command:
+```
+java -cp "target/classes:target/dependency/*" MastermindCLI
+```
+
 The previous commands will create a target folder and compile the necessary classes. It will then copy the necessary dependencies. The last command will start the MastermindCLI
 
 ## Project Development Process
