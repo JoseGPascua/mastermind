@@ -79,7 +79,7 @@ mvn clean install
 mvn dependency:copy-dependencies
 java -cp "target/classes;target/dependency/*" MastermindCLI
 ```
-For Mac Users, if the Java Command doesn't work, either try running MastermindCLI.java on an IDE ur run this command:
+For Mac Users, if the Java Command doesn't work, either try running MastermindCLI.java on an IDE or run this command:
 ```
 java -cp "target/classes:target/dependency/*" MastermindCLI
 ```
